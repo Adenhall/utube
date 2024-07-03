@@ -10,9 +10,7 @@ Rails.application.routes.draw do
   get 'up' => 'rails/health#show', as: :rails_health_check
 
   namespace :api do
-    namespace :auth do
-      post '/login', to: 'auth#login'
-      post '/signup', to: 'auth#signup'
-    end
+    post '/login', to: 'auth#login'
+    post '/signup', to: 'auth#signup'
   end
 end
