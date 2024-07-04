@@ -10,6 +10,15 @@ type Props = {
 const MobileDialog = ({ open, setOpen }: Props) => {
   const { user, signIn, logout } = useAuth();
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    signIn(
+      e.currentTarget.email.value,
+      e.currentTarget.password.value,
+    );
+  };
+
   return (
     <Dialog
       className="lg:hidden"
@@ -56,11 +65,7 @@ const MobileDialog = ({ open, setOpen }: Props) => {
             : (
               <form
                 className="-my-6 divide-y divide-gray-500/10"
-                onSubmit={(e) =>
-                  signIn(
-                    e.currentTarget.email.value,
-                    e.currentTarget.password.value,
-                  )}
+                onSubmit={handleSubmit}
               >
                 <div className="space-y-2 py-6">
                   <div className="flex flex-col space-y-2">

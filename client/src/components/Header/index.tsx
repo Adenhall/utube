@@ -11,6 +11,11 @@ const Header = () => {
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    signIn(e.currentTarget.email.value, e.currentTarget.password.value);
+  };
+
   return (
     <header className="bg-white border-b">
       <nav
@@ -54,11 +59,7 @@ const Header = () => {
           : (
             <form
               className="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center lg:space-x-6"
-              onSubmit={(e) =>
-                signIn(
-                  e.currentTarget.email.value,
-                  e.currentTarget.password.value,
-                )}
+              onSubmit={handleSubmit}
             >
               <Input
                 className="p-2 border rounded-lg"

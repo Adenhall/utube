@@ -1,11 +1,10 @@
 class Api::AuthController < ApplicationController
   def login
-    user = User.find_by!(email: params[:email].downcase)
+    user = User.find_by(email: params[:email].downcase)
 
     return signup if user.nil?
 
     if user&.authenticate(params[:password])
-      # Save the user.id in that user's session cookie:
       session[:user_id] = user.id.to_s
 
       render json: user, status: :ok
@@ -18,6 +17,8 @@ class Api::AuthController < ApplicationController
     user = User.new(email: params[:email], password: params[:password])
 
     user.save!
+
+    session[:user_id] = user.id.to_s
 
     render json: user, status: :created
   end

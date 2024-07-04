@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { AuthContext, User } from "./AuthContext";
 
 import * as api from "../../services/auth";
+import { AxiosError } from "axios";
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
@@ -19,12 +20,15 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   const signIn = async (email: string, password: string) => {
-    const res = await api.signIn(email, password);
-
-    setCurrentUser({
-      userId: res.data.user_id,
-      email: res.data.email,
-    });
+    try {
+      const res = await api.signIn(email, password);
+      setCurrentUser({
+        userId: res.data.user_id,
+        email: res.data.email,
+      });
+    } catch (error) {
+      if ((error as AxiosError).response?.status === 401) alert('Oops, incorrect email or password');
+    }
   };
 
   const logout = async () => {
