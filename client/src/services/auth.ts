@@ -1,10 +1,18 @@
 import axios from "axios";
 
-export const authSignup = (email: string, password: string) => {
-  return axios.post("/api/signup", { email, password });
+type User = {
+  user_id: string;
+  email: string;
 };
 
-export const authLogin = (email: string, password: string) => {
-  return axios.post("/api/login", { email, password });
+export const signIn = (email: string, password: string) => {
+  return axios.post<User>("/api/signin", { email, password });
 };
 
+export const logout = () => {
+  return axios.post("/api/logout");
+};
+
+export const ping = () => {
+  return axios.get<User>("/api/ping");
+};

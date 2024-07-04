@@ -4,7 +4,11 @@ import { Button, Input } from "@headlessui/react";
 
 import MobileDialog from "./MobileDialog";
 
+import { useAuth } from "../../contexts/auth/hooks";
+
 const Header = () => {
+  const { user, signIn, logout } = useAuth();
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
@@ -33,30 +37,53 @@ const Header = () => {
             <Bars3Icon className="h-6 w-6" aria-hidden="true" />
           </button>
         </div>
-        <form className="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center lg:space-x-6">
-          <Input
-            className="p-2 border rounded-lg"
-            name="email"
-            type="email"
-            placeholder="Email"
-            autoComplete="email"
-            required
-          />
-          <Input
-            className="p-2 border rounded-lg"
-            name="password"
-            type="password"
-            placeholder="Password"
-            autoComplete="current-password"
-            required
-          />
-          <Button
-            type="submit"
-            className="text-sm font-semibold leading-6 text-gray-900"
-          >
-            Log in / Register <span aria-hidden="true">&rarr;</span>
-          </Button>
-        </form>
+        {user
+          ? (
+            <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center lg:space-x-6">
+              <p>Welcome {user.email}</p>
+
+              <Button
+                type="button"
+                className="text-sm font-semibold leading-6 text-gray-900"
+                onClick={logout}
+              >
+                Log out <span aria-hidden="true">&rarr;</span>
+              </Button>
+            </div>
+          )
+          : (
+            <form
+              className="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center lg:space-x-6"
+              onSubmit={(e) =>
+                signIn(
+                  e.currentTarget.email.value,
+                  e.currentTarget.password.value,
+                )}
+            >
+              <Input
+                className="p-2 border rounded-lg"
+                name="email"
+                type="email"
+                placeholder="Email"
+                autoComplete="email"
+                required
+              />
+              <Input
+                className="p-2 border rounded-lg"
+                name="password"
+                type="password"
+                placeholder="Password"
+                autoComplete="current-password"
+                required
+              />
+              <Button
+                type="submit"
+                className="text-sm font-semibold leading-6 text-gray-900"
+              >
+                Log in / Register <span aria-hidden="true">&rarr;</span>
+              </Button>
+            </form>
+          )}
       </nav>
       <div className="lg:hidden">
         <MobileDialog open={mobileMenuOpen} setOpen={setMobileMenuOpen} />
