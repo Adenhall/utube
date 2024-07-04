@@ -11,7 +11,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     (async () => {
       const res = await api.ping();
 
-      setCurrentUser({
+      res.data && setCurrentUser({
         userId: res.data.user_id,
         email: res.data.email,
       });
