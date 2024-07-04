@@ -2,6 +2,7 @@
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version and Gemfile
 ARG RUBY_VERSION=3.3.2
+ARG NODE_VERSION=22.4
 FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim as base
 
 # Rails app lives here
@@ -19,7 +20,11 @@ FROM base as build
 
 # Install packages needed to build gems
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git libpq-dev libvips pkg-config
+    apt-get install --no-install-recommends -y build-essential git libpq-dev libvips pkg-config curl
+
+# Install Node.js and yarn
+RUN curl -fsSL https://deb.nodesource.com/setup_$NODE_VERSION.x | bash - && \
+    apt-get install --no-install-recommends -y nodejs npm
 
 # Install application gems
 COPY Gemfile Gemfile.lock ./
@@ -33,13 +38,16 @@ COPY . .
 # Precompile bootsnap code for faster boot times
 RUN bundle exec bootsnap precompile app/ lib/
 
+# Build the React app
+WORKDIR /rails/client
+RUN npm install && npm run build
 
-# Final stage for app image
+# Final stage for the app image
 FROM base
 
 # Install packages needed for deployment
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libvips postgresql-client && \
+    apt-get install --no-install-recommends -y libvips postgresql-client && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Copy built artifacts: gems, application
