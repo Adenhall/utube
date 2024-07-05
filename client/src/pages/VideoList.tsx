@@ -34,7 +34,7 @@ const VideoList = () => {
   };
 
   return (
-    <div className="py-20 px-6 lg:px-44overflow-scroll">
+    <div className="py-20 px-6 lg:px-44 overflow-scroll">
       <InfiniteScroll
         className="flex flex-col space-y-6 "
         height="700px"
