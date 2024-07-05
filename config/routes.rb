@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     get '/ping', to: 'auth#ping'
     post '/signin', to: 'auth#login'
     post '/logout', to: 'auth#logout'
+
+    post '/share_video', to: 'video#share'
   end
 
   # Serve the frontend through the root path
