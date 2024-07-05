@@ -22,7 +22,7 @@ const Header = () => {
         className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
         aria-label="Global"
       >
-        <div className="flex lg:flex-1">
+        <div className="flex items-center space-x-6 lg:flex-1">
           <a href="#" className="-m-1.5 p-1.5">
             <span className="sr-only">Your Company</span>
             <img
@@ -31,6 +31,7 @@ const Header = () => {
               alt=""
             />
           </a>
+          <h1 className="font-bold text-2xl">Utube</h1>
         </div>
         <div className="flex lg:hidden">
           <button
@@ -45,7 +46,7 @@ const Header = () => {
         {user
           ? (
             <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center lg:space-x-6">
-              <p>Welcome {user.email}</p>
+              <p>Welcome <span className="font-semibold">{user.email}</span></p>
 
               <Button
                 type="button"
