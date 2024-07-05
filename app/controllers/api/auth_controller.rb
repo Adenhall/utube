@@ -28,6 +28,6 @@ class Api::AuthController < ApplicationController
   end
 
   def ping
-    render json: current_user, status: :ok
+    render json: current_user.as_json(except: [:password_digest]), status: :ok
   end
 end

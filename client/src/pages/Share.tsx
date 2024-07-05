@@ -1,9 +1,21 @@
 import { Button, Field, Input, Label } from "@headlessui/react";
-import { Form } from "react-router-dom";
+import { ActionFunction, Form, redirect } from "react-router-dom";
+
+import { shareVideo } from "../services/video";
+
+export const action: ActionFunction = async ({ request }) => {
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+  await shareVideo(data.youtube_link as string);
+  return redirect("/");
+};
 
 const Share = () => {
   return (
-    <Form method="post" className="w-2/5 mx-auto my-20 border border-gray-500 rounded-md px-10 pb-10">
+    <Form
+      method="post"
+      className="w-2/5 mx-auto my-20 border border-gray-500 rounded-md px-10 pb-10"
+    >
       <h1 className="text-2xl my-5">Share a Youtube video</h1>
       <Field>
         <Label className="mr-3">YouTube URL</Label>

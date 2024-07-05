@@ -16,6 +16,8 @@ class Video < ApplicationRecord
   end
 
   def get_youtube_title(video_id)
+    require 'net/http'
+
     api_url = "https://www.googleapis.com/youtube/v3/videos?id=#{video_id}&key=#{api_key}&part=snippet"
     uri = URI(api_url)
     response = Net::HTTP.get(uri)
