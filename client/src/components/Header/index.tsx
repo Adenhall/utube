@@ -5,6 +5,7 @@ import { Button, Input } from "@headlessui/react";
 import MobileDialog from "./MobileDialog";
 
 import { useAuth } from "../../contexts/auth/hooks";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const { user, signIn, logout } = useAuth();
@@ -22,17 +23,18 @@ const Header = () => {
         className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
         aria-label="Global"
       >
-        <div className="flex items-center space-x-6 lg:flex-1">
-          <a href="#" className="-m-1.5 p-1.5">
-            <span className="sr-only">Your Company</span>
-            <img
-              className="h-8 w-auto"
-              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-              alt=""
-            />
-          </a>
+        <Link
+          to="/"
+          className="flex items-center space-x-2 lg:flex-1 -m-1.5 p-1.5"
+        >
+          <span className="sr-only">Your Company</span>
+          <img
+            className="h-8 w-auto"
+            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+            alt=""
+          />
           <h1 className="font-bold text-2xl">Utube</h1>
-        </div>
+        </Link>
         <div className="flex lg:hidden">
           <button
             type="button"
@@ -46,7 +48,17 @@ const Header = () => {
         {user
           ? (
             <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center lg:space-x-6">
-              <p>Welcome <span className="font-semibold">{user.email}</span></p>
+              <p>
+                Welcome <span className="font-semibold">{user.email}</span>
+              </p>
+
+              <Link
+                type="button"
+                className="text-sm font-semibold leading-6 text-gray-900"
+                to="/share"
+              >
+                Share a video <span aria-hidden="true">&rarr;</span>
+              </Link>
 
               <Button
                 type="button"

@@ -1,6 +1,7 @@
 import { Button, Dialog, DialogPanel, Input } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useAuth } from "../../contexts/auth/hooks";
+import { Link } from "react-router-dom";
 
 type Props = {
   open: boolean;
@@ -28,14 +29,14 @@ const MobileDialog = ({ open, setOpen }: Props) => {
       <div className="fixed inset-0 z-10" />
       <DialogPanel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
         <div className="flex items-center justify-between">
-          <a href="#" className="-m-1.5 p-1.5">
+          <Link to="/" className="-m-1.5 p-1.5" onClick={() => setOpen(false)}>
             <span className="sr-only">Your Company</span>
             <img
               className="h-8 w-auto"
               src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
               alt=""
             />
-          </a>
+          </Link>
           <button
             type="button"
             className="-m-2.5 rounded-md p-2.5 text-gray-700"
@@ -55,7 +56,14 @@ const MobileDialog = ({ open, setOpen }: Props) => {
                     {user.email}
                   </span>
                 </p>
-                <div className="py-6">
+                <div className="py-6 space-y-2">
+                  <Link
+                    className="border -mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 w-fit"
+                    to="/share"
+                    onClick={() => setOpen(false)}
+                  >
+                    Share a video
+                  </Link>
                   <Button
                     className="border -mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                     onClick={logout}

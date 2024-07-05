@@ -7,8 +7,10 @@ import AuthProvider from "../contexts/auth/AuthProvider";
 const Root = () => {
   return (
     <AuthProvider>
-      <Header />
-      <Outlet />
+      <div className="w-full min-h-screen bg-gray-100">
+        <Header />
+        <Outlet />
+      </div>
     </AuthProvider>
   );
 };
