@@ -1,13 +1,21 @@
 import { LoaderFunction, useLoaderData } from "react-router-dom";
+
 import { listVideos, Video } from "../services/video";
+
 import YoutubeEmbed from "../components/YoutubeEmbed";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const url = new URL(request.url);
   const page = url.searchParams.get("page");
-  const res = await listVideos(Number(page) || 0);
+  try {
+    const res = await listVideos(Number(page) || 0);
 
-  return res.data.videos || null;
+    return res.data.videos || [];
+  } catch {
+    // TODO: Add visibility
+  }
+
+  return [];
 };
 
 const VideoList = () => {
