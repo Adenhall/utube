@@ -7,7 +7,7 @@ import AuthProvider from "../contexts/auth/AuthProvider";
 const Root = () => {
   return (
     <AuthProvider>
-      <div className="w-full min-h-screen bg-gray-100">
+      <div className="flex flex-col w-full min-h-screen bg-gray-100">
         <Header />
         <Outlet />
       </div>
