@@ -21,9 +21,9 @@ export const loader: LoaderFunction = async ({ request }) => {
 const VideoList = () => {
   const videos = useLoaderData() as Video[];
   return (
-    <div className="mx-auto mt-20 space-y-6">
+    <div className="mx-auto mt-20 px-6 space-y-6">
       {videos.map((video) => (
-        <div key={video.id} className="flex space-x-6">
+        <div key={video.id} className="space-x-6 lg:flex">
           <YoutubeEmbed videoId={video.youtube_id} />
           <h1>{video.title}</h1>
         </div>

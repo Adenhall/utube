@@ -14,7 +14,7 @@ const Share = () => {
   return (
     <Form
       method="post"
-      className="w-2/5 mx-auto my-20 border border-gray-500 rounded-md px-10 pb-10"
+      className="w-3/4 lg:w-1/2 mx-auto my-20 border border-gray-500 rounded-md px-10 pb-10"
     >
       <h1 className="text-2xl my-5">Share a Youtube video</h1>
       <Field>
