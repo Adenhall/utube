@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     post '/logout', to: 'auth#logout'
 
     post '/share_video', to: 'video#share'
+    get '/list_videos', to: 'video#list'
   end
 
   # Serve the frontend through the root path

@@ -2,6 +2,12 @@ class Video < ApplicationRecord
   before_save :assign_title
   belongs_to :user
 
+  scope :latest, -> { order(created_at: :desc) }
+
+  def youtube_id
+    @youtube_id ||= youtube_parse(link)
+  end
+
   private
 
   def api_key
