@@ -29,7 +29,11 @@ class Video < ApplicationRecord
     response = Net::HTTP.get(uri)
     result = JSON.parse(response)
 
-    result['items'][0]['snippet']['title'] unless result['items'].empty?
+    begin
+      result['items'][0]['snippet']['title'] unless result['items'].empty?
+    rescue StandardError
+      nil
+    end
   end
 
   def youtube_parse(url)
