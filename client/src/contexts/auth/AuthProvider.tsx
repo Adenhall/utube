@@ -7,7 +7,7 @@ import { AuthContext } from "./AuthContext";
 import * as api from "../../services/auth";
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const { data: userData } = useLoaderData() as { data: api.User };
+  const { data: userData } = useLoaderData() as { data: api.User | null };
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <AuthContext.Provider
       value={{
-        user: { ...userData, userId: userData.id },
+        user: userData ? { ...userData, userId: userData.id } : null,
         signIn,
         logout,
       }}
