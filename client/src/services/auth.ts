@@ -1,7 +1,7 @@
 import axios from "axios";
 
-type User = {
-  user_id: string;
+export type User = {
+  id: string;
   email: string;
 };
 

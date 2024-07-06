@@ -1,12 +1,13 @@
-import { AuthContext, User } from "./AuthContext";
-
-import * as api from "../../services/auth";
 import { AxiosError } from "axios";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
+import { AuthContext } from "./AuthContext";
+
+import * as api from "../../services/auth";
+
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const { data: userData } = useLoaderData() as { data: User };
+  const { data: userData } = useLoaderData() as { data: api.User };
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,7 +31,13 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user: userData, signIn, logout }}>
+    <AuthContext.Provider
+      value={{
+        user: { ...userData, userId: userData.id },
+        signIn,
+        logout,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

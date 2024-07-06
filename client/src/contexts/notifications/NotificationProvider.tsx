@@ -1,6 +1,9 @@
 import { useEffect, useRef } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import { useAuth } from "../auth/hooks";
 
 const NotificationProvider = ({ children }: { children: React.ReactNode }) => {
+  const { user } = useAuth();
   const socketRef = useRef<WebSocket | null>(null);
 
   useEffect(() => {
@@ -19,13 +22,23 @@ const NotificationProvider = ({ children }: { children: React.ReactNode }) => {
     };
 
     socketRef.current.onmessage = (event) => {
-      const data = JSON.parse(event.data)
+      const data = JSON.parse(event.data);
 
-      if (data.type === 'ping') {
-        return
+      if (data.type === "ping") {
+        return;
       }
 
       console.log("Message from server: ", data);
+
+      if (["welcome", "confirm_subscription"].includes(data.type)) {
+        return;
+      }
+
+      if (user && data.message.user_id !== user.userId) {
+        toast.info(
+          `${data.message.user_email} has just shared a video: ${data.message.video_title}`,
+        );
+      }
     };
 
     socketRef.current.onerror = (error) => {
@@ -36,9 +49,14 @@ const NotificationProvider = ({ children }: { children: React.ReactNode }) => {
       console.log("Closing WebSocket connection");
       socketRef.current?.close();
     };
-  }, []);
+  }, [user]);
 
-  return <div>{children}</div>;
+  return (
+    <div>
+      {children}
+      <ToastContainer />
+    </div>
+  );
 };
 
 export default NotificationProvider;
