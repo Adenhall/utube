@@ -28,17 +28,17 @@ const VideoList = () => {
   };
 
   return (
-    <div className="py-20 px-6 lg:px-44 overflow-scroll">
+    <div id="scrollableDiv" className="py-20 px-6 lg:px-44 overflow-scroll">
       <InfiniteScroll
-        className="flex flex-col space-y-6 "
-        height="700px"
+        className="flex flex-col space-y-6"
         dataLength={data.length}
         next={fetchData}
         hasMore={hasMore}
         loader={<h4>Loading...</h4>}
+        scrollableTarget="scrollableDiv"
       >
         {data.map((video) => (
-          <div key={video.id} className="space-x-6 lg:flex">
+          <div key={video.id} className="space-x-6 flex flex-col lg:flex-row">
             <YoutubeEmbed videoId={video.youtube_id} />
             <h1>{video.title}</h1>
           </div>

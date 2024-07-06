@@ -3,7 +3,7 @@ type Props = {
 };
 
 const YoutubeEmbed = ({ videoId }: Props) => (
-  <div className="video-responsive">
+  <div className="h-96 lg:h-fit">
     <iframe
       width="100%"
       height="100%"
