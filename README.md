@@ -20,11 +20,9 @@ Since this is React On Rails, you will need to ensure dependencies for both Rail
 3. Prepare environment variables
 Create an `.env` file with the following contents:
 ```
-POSTGRES_USER=utube
-POSTGRES_PASSWORD=iloveutube
+YOUTUBE_API=<insert_your_api_here>
 ```
-
-**Fun facts:** You don't actually need `POSTGRES_PASSWORD` and you can just set `POSTGRES_USER` to whatever name you like
+That's it! We just need to use Data API from Youtube to get titles, or maybe descriptions from videos
 
 ## Database Setup
 Be sure that you have the `.env` with the correct contents (See above). Setting up the database is as easy as doing
@@ -73,10 +71,7 @@ To wrap up, this is how you start the app locally for development. On production
 Before going on production, make sure your `.env` has the following contents:
 ```bash
 DATABASE_URL=postgres://utube:iloveutube@db/utube # It could be an external source like a Supabase or another Docker container
-SECRET_BASE_KEY=very_secret
 ```
-You can get the `SECRET_BASE_KEY` by doing `bin/rails secret` and then copying that secret
-
 #### Understanding Dockerfile
 - At first, we specified the version of Rails and Node.js. We need Ruby to build and run the app while Node.js is for compiling the front-end app into assets that we can serve
 ```dockerfile
@@ -157,9 +152,12 @@ CMD ["./bin/rails", "server"]
 Fly.io is great at handling your infrastructure by building, running your Dockerfile, and exposing your app over SSL.
 See this [documentation](https://fly.io/docs/getting-started/launch/) for how you can install Fly CLI and deploy locally
 ```bash
+fly secrets set DATABASE_URL=<your_database_url> # Set environment variables with fly.io
 fly launch # First time deploying
 fly deploy # After you have the fly.toml file
 ```
 
 Look at `fly.toml` file which was generated when first deployed via `fly launch`. If you'd like to run a different command than `./bin/rails db:prepare` after each deployment, you can edit the file to do so as it is [configurable](https://fly.io/docs/reference/configuration)
 
+## Troubleshooting
+- In `database.yml`, `prepared_statements` is set to `false` on production because of an issue with connection pooling with Supabase. See this [issue](https://github.com/prisma/prisma/issues/11643)
