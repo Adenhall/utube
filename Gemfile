@@ -38,9 +38,6 @@ gem 'rack-cors'
 # For background jobs
 gem 'redis', '~> 5.2'
 
-# Easily run monorepo
-gem 'foreman'
-
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri windows]
@@ -51,4 +48,7 @@ group :development do
   # gem "spring"
 
   gem 'dockerfile-rails', '>= 1.6'
+
+  # Easily run monorepo
+  gem 'foreman'
 end

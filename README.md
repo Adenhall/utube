@@ -35,11 +35,11 @@ bin/rails db:prepare
 ## Running the application
 ### Local development
 Now that you have set everything up, you can start the development server:
-```
-bundle exec foreman start
+```bash
+bin/dev # If permission denied, grant execute permission with `chmod +x bin/dev``
 ```
 
-This command will trigger 2 processes in the `Procfile` that will start the React app on port 3001 and the Rails app on port 3000.
+This command will trigger 2 processes in the `Procfile.dev` that will start the React app on port 3001 and the Rails app on port 3000.
 
 **Fun facts:** In case you're wondering how both ends are connected, please check `client/vite.config.ts` where you will find the configuration that maps any `/api` requests to our Rails app
 

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# bin/dev
+# Ensure that foreman is installed
+command -v foreman > /dev/null 2>&1 || {
+  echo "Foreman is not installed. Installing..."
+  gem install foreman
+}
+
+# Run foreman with the Procfile.dev
+exec foreman start -f Procfile.dev
