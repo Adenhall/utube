@@ -6,10 +6,8 @@
 # Read more: https://github.com/cyu/rack-cors
 
 accept = [
-  'http://127.0.0.1:5173', # Dev Frontend
-  'http://localhost:5173', # Dev Frontend
-  'http://127.0.0.1:5174', # Dev Frontend
-  'http://localhost:5174' # Dev Frontend
+  'http://127.0.0.1:3001', # Dev Frontend
+  'http://localhost:3001' # Dev Frontend
 ]
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
