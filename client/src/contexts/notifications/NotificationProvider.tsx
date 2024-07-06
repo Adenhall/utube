@@ -7,7 +7,9 @@ const NotificationProvider = ({ children }: { children: React.ReactNode }) => {
   const socketRef = useRef<WebSocket | null>(null);
 
   useEffect(() => {
-    socketRef.current = new WebSocket("ws://localhost:3000/cable");
+    socketRef.current = new WebSocket(
+      `${import.meta.env.PROD ? 'wss' : 'ws'}://${import.meta.env.VITE_API_HOST}/cable`,
+    );
 
     socketRef.current.onopen = () => {
       console.log("WebSocket connection established");
@@ -37,6 +39,11 @@ const NotificationProvider = ({ children }: { children: React.ReactNode }) => {
       if (user && data.message.user_id !== user.userId) {
         toast.info(
           `${data.message.user_email} has just shared a video: ${data.message.video_title}`,
+          {
+            onClick() {
+              window.location.href = "/";
+            },
+          },
         );
       }
     };
