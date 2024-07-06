@@ -84,3 +84,4 @@ production:
   database: utube_production
   username: utube
   password: <%= ENV["UTUBE_DATABASE_PASSWORD"] %>
+  prepared_statements: false
