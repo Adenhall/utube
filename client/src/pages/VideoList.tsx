@@ -7,21 +7,15 @@ import YoutubeEmbed from "../components/YoutubeEmbed";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 export const loader: LoaderFunction = async () => {
-  try {
-    const res = await listVideos();
+  const res = await listVideos();
 
-    return res.data.videos || [];
-  } catch {
-    // TODO: Add visibility
-  }
-
-  return [];
+  return res.data.videos;
 };
 
 const VideoList = () => {
   const videos = useLoaderData() as Video[];
   const [data, setData] = useState(videos);
-  const [hasMore, setHasMore] = useState(true);
+  const [hasMore, setHasMore] = useState(videos.length === 5);
   const [page, setPage] = useState(0);
 
   const fetchData = async () => {
@@ -42,11 +36,6 @@ const VideoList = () => {
         next={fetchData}
         hasMore={hasMore}
         loader={<h4>Loading...</h4>}
-        endMessage={
-          <p style={{ textAlign: "center" }}>
-            <b>Yay! You have seen it all</b>
-          </p>
-        }
       >
         {data.map((video) => (
           <div key={video.id} className="space-x-6 lg:flex">

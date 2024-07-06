@@ -16,7 +16,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const signIn = async (email: string, password: string) => {
     try {
       await api.signIn(email, password);
-      navigate("/", { replace: true });
+      window.location.reload();
     } catch (error) {
       if ((error as AxiosError).response?.status === 401) {
         alert("Oops, incorrect email or password");
