@@ -10,7 +10,8 @@ class Api::VideoController < ApplicationController
   end
 
   def share
-    Video.create!(link: params[:url], user_id: current_user.id)
+    video = Video.create!(link: params[:url], user_id: current_user.id)
+    ActionCable.server.broadcast 'NotificationsChannel', video_attributes(video)
   end
 
   private

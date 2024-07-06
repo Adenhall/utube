@@ -28,7 +28,7 @@ const VideoList = () => {
   };
 
   return (
-    <div id="scrollableDiv" className="py-20 px-6 lg:px-44 overflow-scroll">
+    <div id="scrollableDiv" className="min-h-[inherit] py-20 px-6 lg:px-44 overflow-scroll">
       <InfiniteScroll
         className="flex flex-col space-y-6"
         dataLength={data.length}
