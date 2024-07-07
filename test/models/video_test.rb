@@ -3,7 +3,12 @@ require 'net/http'
 
 class VideoTest < ActiveSupport::TestCase
   setup do
-    @user = users(:one)
+    @user = User.new(
+      email: 'USER@EXAMPLE.COM',
+      password: 'password',
+      password_confirmation: 'password'
+    )
+
     @video = Video.new(link: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', user: @user)
   end
 
