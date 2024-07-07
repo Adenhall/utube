@@ -62,4 +62,22 @@ describe("Header Component", () => {
     fireEvent.click(screen.getByText("Open main menu"));
     expect(screen.getByTestId("mobile-dialog")).toBeInTheDocument();
   });
+
+
+  it("calls signIn on form submit", () => {
+    const mockSignIn = vi.fn();
+    (useAuth as Mock).mockReturnValue({ user: null, signIn: mockSignIn });
+
+    const screen = render(
+      <BrowserRouter>
+        <Header />
+      </BrowserRouter>,
+    );
+
+    fireEvent.change(screen.getByPlaceholderText("Email"), { target: { value: "test@example.com" } });
+    fireEvent.change(screen.getByPlaceholderText("Password"), { target: { value: "password" } });
+    fireEvent.submit(screen.getByRole("button", { name: "Log in / Register"}))
+
+    expect(mockSignIn).toHaveBeenCalledWith("test@example.com", "password");
+  });
 });

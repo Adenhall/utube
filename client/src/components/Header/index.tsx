@@ -14,7 +14,14 @@ const Header = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    signIn(e.currentTarget.email.value, e.currentTarget.password.value);
+    const { email, password } = e.currentTarget.elements as
+      & typeof e.currentTarget.elements
+      & {
+        email: HTMLInputElement;
+        password: HTMLInputElement;
+      };
+
+    signIn(email.value, password.value);
   };
 
   return (
