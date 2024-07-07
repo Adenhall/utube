@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class Api::AuthControllerTest < ActionDispatch::IntegrationTest
+  include AuthHelper
+
   setup do
     @user = User.create(
       email: 'user@example.com',
@@ -47,24 +49,18 @@ class Api::AuthControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should logout' do
-    login_user(@user)
+    login_as(@user)
     post api_logout_url
     assert_response :no_content
     assert_nil session[:user_id]
   end
 
   test 'should ping and return current user' do
-    login_user(@user)
+    login_as(@user)
     get api_ping_url
     assert_response :ok
 
     response_data = JSON.parse(response.body)
     assert_equal @user.email, response_data['email']
-  end
-
-  private
-
-  def login_user(user)
-    post api_signin_url, params: { email: user.email, password: @user.password }
   end
 end

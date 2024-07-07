@@ -13,6 +13,8 @@ class Api::VideoController < ApplicationController
     video = Video.create!(link: params[:url], user_id: current_user.id)
     ActionCable.server.broadcast 'NotificationsChannel',
                                  { user_id: current_user.id, user_email: current_user.email, video_title: video.title }
+
+    render status: :created
   end
 
   private
