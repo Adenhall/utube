@@ -88,6 +88,7 @@ const Header = () => {
                 type="password"
                 placeholder="Password"
                 autoComplete="current-password"
+                minLength={6}
                 required
               />
               <Button

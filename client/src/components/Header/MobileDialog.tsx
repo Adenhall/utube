@@ -94,6 +94,7 @@ const MobileDialog = ({ open, setOpen }: Props) => {
                       type="password"
                       placeholder="Password"
                       autoComplete="current-password"
+                      minLength={6}
                       required
                     />
                   </div>
