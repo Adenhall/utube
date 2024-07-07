@@ -13,15 +13,19 @@ const MobileDialog = ({ open, setOpen }: Props) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const { email, password } = e.currentTarget.elements as
+      & typeof e.currentTarget.elements
+      & {
+        email: HTMLInputElement;
+        password: HTMLInputElement;
+      };
 
-    signIn(
-      e.currentTarget.email.value,
-      e.currentTarget.password.value,
-    );
+    signIn(email.value, password.value);
   };
 
   return (
     <Dialog
+      data-testid="mobile-dialog"
       className="lg:hidden"
       open={open}
       onClose={setOpen}
