@@ -5,6 +5,7 @@ type Props = {
 const YoutubeEmbed = ({ videoId }: Props) => (
   <div className="h-96 lg:h-fit">
     <iframe
+      data-testid="youtube-embed"
       width="100%"
       height="100%"
       src={`https://www.youtube.com/embed/${videoId}`}
