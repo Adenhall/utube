@@ -38,6 +38,9 @@ gem 'rack-cors'
 # For background jobs
 gem 'redis', '~> 5.2'
 
+gem 'sentry-rails'
+gem 'sentry-ruby'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri windows]
